@@ -1,4 +1,4 @@
-using System;
+嚜簑sing System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 namespace NetCoreMVC
 {
-    public class Startup
+    public class CustomStartup
     {
-        public Startup(IConfiguration configuration)
+
+        public CustomStartup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -24,16 +24,12 @@ namespace NetCoreMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services 是DI 的容器，在程式WebHost建立之初，就會把所需要的類別注入容器內
-            //而後，若是在Controller當中發現建構子有 需要注入的參數，就會把實例注入給該Contrller
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //IApplicationBuilder  使用來管理 Request n Response , 
-            //IWebHostEnvironment取得WeboHost 建立應用程式時所需的資訊
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -44,24 +40,21 @@ namespace NetCoreMVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/",
-                    async context =>
-                    {
-                        await context.Response.WriteAsync("Hello World!");
-                    });
-            });
-
-
+      
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/",
+                    async context =>
+                    {
+                        await context.Response.WriteAsync("This is Custom StartUp!");
+                    });
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
