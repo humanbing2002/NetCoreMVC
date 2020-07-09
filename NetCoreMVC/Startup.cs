@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetCoreMVC.Models.DISample;
 using static NetCoreMVC.Models.DISample.DISample;
 
 namespace NetCoreMVC
@@ -27,7 +28,11 @@ namespace NetCoreMVC
         {
 
             services.AddControllersWithViews();
-            services.AddScoped<ISample, Sample>();
+          
+            services.AddTransient<ISampleTransient, LifeCycleSample>();
+            services.AddScoped<ISampleScoped, LifeCycleSample>();
+            services.AddSingleton<ISampleSingleton, LifeCycleSample>();
+
 
         }
 
