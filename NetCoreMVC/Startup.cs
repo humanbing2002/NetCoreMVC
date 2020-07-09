@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using static NetCoreMVC.Models.DISample.DISample;
 
 namespace NetCoreMVC
 {
@@ -21,11 +22,13 @@ namespace NetCoreMVC
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-      //此方法是用來將服務註冊到 DI 容器用的    
+        //此方法是用來將服務註冊到 DI 容器用的    
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddControllersWithViews();
+            services.AddScoped<ISample, Sample>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
