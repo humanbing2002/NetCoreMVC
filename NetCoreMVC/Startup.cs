@@ -59,6 +59,8 @@ namespace NetCoreMVC
 
             app.UseAuthorization();     //Â²©ö±ÂÅv
 
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
