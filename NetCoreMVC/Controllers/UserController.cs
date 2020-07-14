@@ -4,18 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using NetCoreMVC.Models.DBModel;
+using Dapper;
 
 namespace NetCoreMVC.Controllers
 {
     public class UserController : Controller
     {
         private readonly MvcdbContext _context;
-
-        public UserController(MvcdbContext context)
+        private readonly IConfiguration _configuration;
+        public UserController(MvcdbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // GET: User
@@ -144,7 +148,21 @@ namespace NetCoreMVC.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public dbUser GetFirstUser()
+        {
+            using (var cn = new SqlConnection(_configuration.GetValue<string>("ConnectionStrings:DBConectString")))
+            {
+                string sql = $"SELECT * FROM dbo.dbUser ";
+                var result = cn.Query<dbUser>(sql).ToList();
 
+                if (result.Count() > 0)
+                {
+                    return result.FirstOrDefault();
+                }
+            }
+            return null;
+
+        }
         private bool dbUserExists(Guid id)
         {
             return _context.dbUser.Any(e => e.ID == id);

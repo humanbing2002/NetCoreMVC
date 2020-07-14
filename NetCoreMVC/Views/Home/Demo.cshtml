@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewData["Title"] = "Demo";
+}
+@section Styles{
+    <style>
+
+        #btnID {
+            background-color: blue;
+        }
+
+        .btnClass {
+            width: 500px;
+        }
+    </style>
+
+}
+
+<h1>Demo</h1>
+<div class="row">
+    <button id="btnID">Button of ID</button>
+
+    <button class="btnClass btn btn-info">Button of Class</button>
+
+</div>
+
+<div class="row">
+    <p id="pAjax"></p>
+    <button id="btnAjax">Post</button>
+</div>
+
+<div id="tags" class="row col-md-10" style="background-color:aquamarine">
+    <p>1233211234567</p>
+</div>
+
+
+
+@section Scripts{
+    <script>
+  //     var a =
+  //     {
+  //         "name": "蜘蛛人",
+  //         "age": 18,
+  //         "powers":
+  //             ["超級力量", "超級耐力", "超級的反射神經", "蜘蛛感應"]
+  //     };
+        $('#btnID').click(function () {
+        //    console.log('this is btnID')
+              alert(a);
+        })
+
+        $('.btnClass').click(function () {
+          //  alert(JSON.stringify(a));
+              alert('this is btnClass')
+        })
+
+        $('p').click(function () {
+              alert('this is p Tag')
+        })
+        
+        $('#btnAjax').click(function () {
+            $.get('/Home/GetFirstUser', function (data) {
+                $('#pAjax').html(JSON.stringify(data))
+            })
+        });
+   
+    </script>
+
+
+}
