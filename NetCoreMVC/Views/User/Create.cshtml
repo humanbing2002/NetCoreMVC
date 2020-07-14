@@ -2,11 +2,15 @@
 
 @{
     ViewData["Title"] = "Create";
+    //這是Razor 程式區塊範例
+    var RazorSample = "this is how we write C# Program in View ";
 }
 
 <h1>Create</h1>
 
+@*<h4>@RazorSample</h4>*@
 <h4>dbUser</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,9 +22,14 @@
                 <span asp-validation-for="ID" class="text-danger"></span>
             </div>
             <div class="form-group">
+                @*Razor 控制項範例*@
+                @*@Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @readonly = "readonly" })*@
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+
+
             </div>
             <div class="form-group">
                 <label asp-for="EmpNo" class="control-label"></label>

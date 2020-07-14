@@ -38,7 +38,10 @@ namespace NetCoreMVC.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.vwBag = "This is Come From View Bag";
+            ViewData["vwData"] = "This is Come From ViewData";
+            TempData["tmpData"] = "This is Come From TempData";
+            dbUser.BirthDay = "1900/01/01";
             return View(dbUser);
         }
 
